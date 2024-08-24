@@ -138,7 +138,10 @@ const app = {
         audio.ontimeupdate = function(){
             if(audio.duration){
                 const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
-                progress.value = progressPercent;
+                if(audio.currentTime){
+                    progress.value = progressPercent;
+                    progress.style.backgroundImage = `linear-gradient(90deg, #ec1f55 ${progressPercent}%, transparent 0%)`
+                }
             }
             
         }
@@ -221,6 +224,14 @@ const app = {
         this.isRandom = this.config.isRandom;
         this.isRepeat = this.config.isRepeat;
     },
+    setupToConfig: function() {
+        if(this.isRandom) {
+            randomBtn.classList.add('active');         
+        } 
+        if(this.isRepeat) {
+            repeatBtn.classList.add('active');
+        }
+    },
     prevSong:function(){
         this.currenIndex--;
         if(this.currenIndex < 0){
@@ -248,6 +259,7 @@ const app = {
     start:function(){
         //Gán cấu hình từ config vào ứng dụng
         this.loadConfig();
+        this.setupToConfig();
         //Định nghĩa các thuộc tính cho object
         this.defineProperties();
 
@@ -260,9 +272,7 @@ const app = {
         //Render playlist
         this.render();
 
-        //Hiển thị trạng thái ban đầu của btn random và repeat
-        repeatBtn.classList.toggle('active', this.isRepeat)
-        randomBtn.classList.toggle('active', this.isRandom)
+        
 
     }
 }
