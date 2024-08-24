@@ -22,6 +22,7 @@ const app = {
     isRandom : false,
     isRepeat : false,
     config : JSON.parse(localStorage.getItem(PLAY_STORAGE_KEY)) || {},
+    //cấu hình
     setConfig: function(key, value){
         this.config[key] = value;
         localStorage.setItem(PLAY_STORAGE_KEY, JSON.stringify(this.config))
@@ -260,6 +261,7 @@ const app = {
         //Gán cấu hình từ config vào ứng dụng
         this.loadConfig();
         this.setupToConfig();
+
         //Định nghĩa các thuộc tính cho object
         this.defineProperties();
 
@@ -271,8 +273,6 @@ const app = {
 
         //Render playlist
         this.render();
-
-        
 
     }
 }
